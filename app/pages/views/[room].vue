@@ -209,7 +209,7 @@ export default {
 
       latestValues: {},
       currentValues: {},
-      latestEntry: null,
+      entryQueue: [],
     };
   },
   setup() {
@@ -284,7 +284,8 @@ export default {
 
         // Add point to chart and scroll
 
-        this.latestEntry = entry;
+        // this.latestEntry = entry;
+        this.entryQueue.push(entry);
 
         const values = {};
         entry.metrics.forEach((m) => {
@@ -336,14 +337,27 @@ export default {
       if (this.intervalId) clearInterval(this.intervalId);
 
       this.intervalId = setInterval(() => {
-        if (this.latestEntry && this.chart) {
-          this.addPoint(this.latestEntry);
-          this.latestEntry = null; // consume it
+        if (this.chart && this.entryQueue.length) {
+          while (this.entryQueue.length) {
+            const entry = this.entryQueue.shift();
+            this.addPoint(entry);
+          }
         }
+
         if (this.latestValues) {
           this.currentValues = this.latestValues;
         }
       }, 1000 / this.fps);
+
+      // this.intervalId = setInterval(() => {
+      //   if (this.latestEntry && this.chart) {
+      //     this.addPoint(this.latestEntry);
+      //     this.latestEntry = null; // consume it
+      //   }
+      //   if (this.latestValues) {
+      //     this.currentValues = this.latestValues;
+      //   }
+      // }, 1000 / this.fps);
     },
     resolveColour: function (f) {
       if (this.currentRoom == "EXC1") {
@@ -379,10 +393,17 @@ export default {
         const key = this.metricKeys[i];
         const metricObj = entry.metrics.find((m) => m[key] !== undefined);
         if (metricObj) {
-          dataset.data.push({
-            x: new Date(entry.timestamp),
-            y: metricObj[key],
-          });
+          const newX = new Date(entry.timestamp).getTime();
+          const lastPoint = dataset.data[dataset.data.length - 1];
+
+          if (!lastPoint || newX >= lastPoint.x.getTime()) {
+            dataset.data.push({ x: new Date(newX), y: metricObj[key] });
+          }
+
+          // dataset.data.push({
+          //   x: new Date(entry.timestamp),
+          //   y: metricObj[key],
+          // });
         }
 
         // Keep only last `max_mins` minutes
