@@ -165,6 +165,7 @@ import {
   Tooltip,
 } from "chart.js";
 import "chartjs-adapter-date-fns";
+import annotationPlugin from "chartjs-plugin-annotation";
 
 Chart.register(
   LineController,
@@ -175,6 +176,7 @@ Chart.register(
   CategoryScale,
   Legend,
   Tooltip,
+  annotationPlugin,
 );
 
 export default {
@@ -506,6 +508,36 @@ export default {
           plugins: {
             legend: {
               display: true,
+            },
+            annotation: {
+              annotations: {
+                thresholdLine: {
+                  type: "line",
+                  yMin: this.currentRoom === "EXC1" ? 86 : 94,
+                  yMax: this.currentRoom === "EXC1" ? 86 : 94,
+
+                  borderColor: "yellow",
+                  borderWidth: 2,
+                  label: {
+                    display: false,
+                    content: "Limit (50)",
+                    position: "end",
+                  },
+                },
+                thresholdLine2: {
+                  type: "line",
+                  yMin: this.currentRoom === "EXC1" ? 88 : 96,
+                  yMax: this.currentRoom === "EXC1" ? 88 : 96,
+
+                  borderColor: "red",
+                  borderWidth: 2,
+                  label: {
+                    display: false,
+                    content: "Limit (50)",
+                    position: "end",
+                  },
+                },
+              },
             },
           },
         },
