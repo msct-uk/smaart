@@ -245,7 +245,9 @@ export default {
     );
     ws.onmessage = (event) => {
       const msg = JSON.parse(event.data);
-      console.log(msg);
+
+      console.log(this.currentValues);
+
       if (msg.type == "snapshot_end") {
         this.showGraph = true;
         this.recvLive = true;
@@ -283,8 +285,10 @@ export default {
         //   // console.log(this.filteredStream);
         // }
       } else if (msg.type === "live" && this.recvLive) {
+        // console.log(this.currentRoomIndex);
         const entry = JSON.parse(msg.data)[this.currentRoomIndex];
         this.filteredStream.push(entry);
+        console.log(entry);
 
         // Add point to chart and scroll
 
@@ -423,14 +427,14 @@ export default {
       this.chart.update("none"); // no animation
     },
     resolveRoom: function (r) {
-      if (r == "central1") {
-        return "Central 1 (Arches 15 - 16)";
-      } else if (r == "central2") {
-        return "Central 2 (Arches 11 - 12)";
+      if (r == "central4") {
+        return "Central 4 (Arches 15 - 16)";
       } else if (r == "central3") {
-        return "Central 3 (Arches 7 - 8)";
-      } else if (r == "central4") {
-        return "Central 4 (Arches 3 - 4)";
+        return "Central 3 (Arches 11 - 12)";
+      } else if (r == "central2") {
+        return "Central 2 (Arches 7 - 8)";
+      } else if (r == "central1") {
+        return "Central 1 (Arches 3 - 4)";
       } else if (r == "exchange") {
         return "Exchange Hall";
       } else {

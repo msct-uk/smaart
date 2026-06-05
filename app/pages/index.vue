@@ -103,10 +103,10 @@ export default {
     return {
       logoSrc: "/img/ManCentrallogo.png",
       centrals: [
-        { name: "Arches 15 - 16", link: "/views/central1" },
-        { name: "Arches 11 - 12", link: "/views/central2" },
-        { name: "Arches 7 - 8", link: "/views/central3" },
-        { name: "Arches 3 - 4", link: "/views/central4" },
+        { name: "Arches 3 - 4", link: "/views/central1" },
+        { name: "Arches 7 - 8", link: "/views/central2" },
+        { name: "Arches 11 - 12", link: "/views/central3" },
+        { name: "Arches 15 - 16", link: "/views/central4" },
         { name: "Exchange Hall", link: "/views/exchange" },
       ],
     };
