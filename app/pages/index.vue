@@ -38,26 +38,26 @@
         <area
           shape="rect"
           coords="0, 195, 115, 384"
-          href="/views/central1"
-          alt="Central 1"
+          href="/views/central4"
+          alt="Central 4"
         />
         <area
           shape="rect"
           coords="115, 195, 215, 384"
-          href="/views/central2"
-          alt="Central 2"
-        />
-        <area
-          shape="rect"
-          coords="215, 195, 317, 384"
           href="/views/central3"
           alt="Central 3"
         />
         <area
           shape="rect"
+          coords="215, 195, 317, 384"
+          href="/views/central2"
+          alt="Central 2"
+        />
+        <area
+          shape="rect"
           coords="317, 195, 420, 384"
-          href="/views/central4"
-          alt="Central 4"
+          href="/views/central1"
+          alt="Central 1"
         />
         <area
           shape="rect"
